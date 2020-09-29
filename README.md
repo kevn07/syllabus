@@ -1,2 +1,2 @@
 # syllabus
-learning platform / LMS that gamifies learning with a focus on utilising markdown to easily edit training modules
+Learning platform application with heavy focus on utilising markdown for easy editing and formatting capabilities.
