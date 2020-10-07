@@ -11,10 +11,10 @@ const routes = [
     component: LoginView
   },
   {
-    path:"/home",
+    path: "/home",
     component: HomeView,
     meta: {
-        requiresAuth: true
+      requiresAuth: true
     }
   }
 ];
@@ -24,14 +24,13 @@ const router = new Router({
   mode: "history"
 });
 
-
 router.beforeEach((to, from, next) => {
-    const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-    if(requiresAuth && !auth.currentUser) {
-        next('/login')
-    } else {
-        next()
-    }
-})
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  if (requiresAuth && !auth.currentUser) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 
 export default router;

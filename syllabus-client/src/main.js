@@ -6,7 +6,7 @@ import { auth } from "./lib/firebase";
 Vue.config.productionTip = false;
 
 let app;
-auth.onAuthStateChanged(() => {
+auth.onAuthStateChanged(user => {
   if (!app) {
     new Vue({
       el: "#app",
@@ -14,5 +14,9 @@ auth.onAuthStateChanged(() => {
       router,
       render: h => h(App)
     });
+  }
+
+  if (user) {
+    store.dispatch("fetchUserProfile", user);
   }
 });
