@@ -5,8 +5,7 @@ const {
     VUE_APP_FB_PROJECT_ID,
     VUE_APP_FB_STORAGE_BUCKET,
     VUE_APP_FB_MESSAGING_SENDER_ID,
-    VUE_APP_FB_APP_ID,
-    VUE_APP_FB_MEASUREMENT_ID
+    VUE_APP_FB_APP_ID
 } = process.env;
 
 export const config = {
