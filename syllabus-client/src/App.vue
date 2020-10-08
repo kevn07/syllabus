@@ -2,12 +2,20 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
     <router-view />
+    <button @click="logout" class="logout">
+        Logout
+    </button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
+  }
 };
 </script>
 

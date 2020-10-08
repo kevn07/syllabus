@@ -20,19 +20,17 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(result => {
-          const token = result.credential.accessToken;
-          //   const user = result.user;
-
-          this.$store.dispatch("socialLogin", {
-            email: result.user.email,
-            token: token
-          });
-          //   this.$router.replace("home");
+            const token = result.credential.accessToken;
+            this.$store.dispatch("socialLogin", {
+                email: result.user.email,
+                token: token
+            });
+            this.$router.push("/home");
         })
         .catch(err => {
           alert("Login Failed: " + err.message);
         });
-    }
+    },
   }
 };
 </script>

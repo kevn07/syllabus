@@ -1,5 +1,5 @@
 import router from "../router";
-
+import firebase from "firebase";
 export default {
   // obtain asynchronous operations
   async socialLogin({ dispatch }, details) {
@@ -9,6 +9,13 @@ export default {
   async fetchUserProfile({ commit }, user) {
     const userProfile = user;
     commit("setUserProfile", userProfile);
-    router.push("/home");
+  },
+  async logout({ commit }) {
+    commit("setUserProfile", {});
+    console.log("running logout")
+    firebase.auth().signOut().then(() => {
+        console.log("inside here")
+        router.push("/login");
+    })
   }
 };

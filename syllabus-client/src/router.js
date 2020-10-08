@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import LoginView from "./views/LoginView.vue";
 import HomeView from "./views/HomeView";
-import { auth } from "firebase";
+import firebase from "firebase";
 Vue.use(Router);
 
 const routes = [
@@ -24,9 +24,9 @@ const router = new Router({
   mode: "history"
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-  if (requiresAuth && !auth.currentUser) {
+  if (requiresAuth && !await firebase.getCurrentUser()) {
     next("/login");
   } else {
     next();
