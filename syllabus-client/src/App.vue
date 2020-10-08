@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <h1 id="app-title">syllab<span style="color: #42b883">us</span></h1>
     <router-view />
-    <button @click="logout" class="logout">
-        Logout
-    </button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
-  methods: {
-    logout() {
-      this.$store.dispatch("logout");
-    }
-  }
+  name: "App"
 };
 </script>
 
@@ -27,5 +19,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#main-logo {
+  width: 20%;
+}
+
+#app-title {
+  font-size: 50px;
 }
 </style>

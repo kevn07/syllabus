@@ -26,7 +26,7 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-  if (requiresAuth && !await firebase.getCurrentUser()) {
+  if (requiresAuth && !(await firebase.getCurrentUser())) {
     next("/login");
   } else {
     next();

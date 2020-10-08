@@ -12,10 +12,13 @@ export default {
   },
   async logout({ commit }) {
     commit("setUserProfile", {});
-    console.log("running logout")
-    firebase.auth().signOut().then(() => {
-        console.log("inside here")
+    console.log("running logout");
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("inside here");
         router.push("/login");
-    })
+      });
   }
 };
