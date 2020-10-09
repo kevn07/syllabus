@@ -3,16 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service -r dotenv/config serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "debounce": "^1.2.0",
     "dotenv": "^8.2.0",
     "firebase": "^7.22.1",
+    "marked": "^1.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.4.5",
+    "vue-youtube-embed": "^2.2.2",
     "vuex": "^3.5.1"
   },
   "devDependencies": {

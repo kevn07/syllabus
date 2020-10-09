@@ -1,11 +1,16 @@
 import Vue from "vue";
 import Router from "vue-router";
-import LoginView from "./views/LoginView.vue";
+import LoginView from "./views/LoginView";
 import HomeView from "./views/HomeView";
 import firebase from "firebase";
+import EditorView from "./views/EditorView";
 Vue.use(Router);
 
 const routes = [
+  {
+    path: "/test",
+    component: EditorView
+  },
   {
     path: "/login",
     component: LoginView
