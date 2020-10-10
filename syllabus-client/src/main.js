@@ -3,9 +3,9 @@ import router from "./router";
 import store from "./store";
 import App from "./App.vue";
 import { auth } from "./lib/firebase";
-import VueYouTubeEmbed from 'vue-youtube-embed'
+import VueYouTubeEmbed from "vue-youtube-embed";
 
-Vue.use(VueYouTubeEmbed)
+Vue.use(VueYouTubeEmbed);
 Vue.config.productionTip = false;
 
 let app;

@@ -29,14 +29,17 @@ export default {
 </script>
 
 <style lang="scss">
-html, body, #markdown-editor {
+html,
+body,
+#markdown-editor {
   margin: 0;
   height: 100%;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
 }
 
-textarea, #markdown-editor div {
+textarea,
+#markdown-editor div {
   display: inline-block;
   width: 49%;
   height: 100%;
@@ -54,9 +57,9 @@ textarea {
   outline: none;
   background-color: #f6f6f6;
   font-size: 14px;
-  font-family: 'Monaco', courier, monospace;
+  font-family: "Monaco", courier, monospace;
   padding: 20px;
-  height: 100%
+  height: 100%;
 }
 
 code {
