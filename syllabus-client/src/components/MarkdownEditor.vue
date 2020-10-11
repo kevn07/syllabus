@@ -10,6 +10,10 @@ import marked from "marked";
 import debounce from "debounce";
 export default {
   name: "MarkdownEditor",
+  props: {
+    sequenceNo: Number,
+    type: String
+  },
   data: function() {
     return {
       input: "# hello"
@@ -23,8 +27,17 @@ export default {
   methods: {
     update: debounce(function(e) {
       this.input = e.target.value;
+      console.log(this.$store);
+      this.$store.dispatch("updateComponentInput", {
+        sequenceNo: this.sequenceNo,
+        type: this.type,
+        input: this.input
+      });
     }, 300)
   }
+  // mounted() {
+  //   console.log(this.sequenceNo);
+  // }
 };
 </script>
 

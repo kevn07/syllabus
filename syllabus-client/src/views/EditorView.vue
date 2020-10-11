@@ -3,9 +3,10 @@
     <h1>
       Editor
     </h1>
-    <MarkdownEditor />
+    <!-- <MarkdownEditor /> -->
     <youtube :video-id="videoId" />
-    <h1 @click="addMarkdownComponent">Add Markdown</h1>
+    <h1 @click="addVideoComponent">Add YT</h1>
+    <h1 @click="addMdComponent">Add MD</h1>
     <div ref="editorContainer">
       <MarkdownEditor />
     </div>
@@ -15,24 +16,43 @@
 <script>
 import Vue from "vue";
 import MarkdownEditor from "../components/MarkdownEditor";
-
+import youtube from "vue-youtube-embed";
 export default {
   Name: "Editor",
-  components: {
-    MarkdownEditor: () => import("../components/MarkdownEditor")
-  },
   data() {
     return {
-      videoId: "v8bZVdTgXoY"
+      videoId: "v8bZVdTgXoY",
+      sequenceNo: 0
     };
   },
   methods: {
-    addMarkdownComponent() {
+    addMdComponent() {
       let componentClass = Vue.extend(MarkdownEditor);
-      let instance = new componentClass();
+      let instance = new componentClass({
+        propsData: { sequenceNo: this.sequenceNo }
+      });
       instance.$mount();
       this.$refs.editorContainer.appendChild(instance.$el);
-      console.log(this.$refs.editorContainer);
+      this.$store.dispatch("createComponent", {
+        sequenceNo: this.sequenceNo,
+        type: "markdown",
+        input: ""
+      });
+      console.log(this.$store.state.editorData);
+      this.sequenceNo++;
+    },
+    addVideoComponent() {
+      let componentClass = Vue.extend(youtube);
+      let instance = new componentClass();
+      instance.$mount();
+      this.$refs.editorContainer.append(instance.$el);
+      this.$store.dispatch("createComponent", {
+        sequenceNo: this.sequenceNo,
+        type: "video",
+        input: this.videoId
+      });
+      console.log(this.$store.state.editorData);
+      this.sequenceNo++;
     }
   }
 };

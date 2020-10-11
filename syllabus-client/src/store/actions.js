@@ -20,5 +20,11 @@ export default {
         console.log("inside here");
         router.push("/login");
       });
+  },
+  async createComponent({ commit }, data) {
+    commit("createComponent", data);
+  },
+  async updateComponentInput({ commit }, data) {
+    commit("updateComponentInput", data);
   }
 };
