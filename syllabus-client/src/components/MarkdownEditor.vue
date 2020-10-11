@@ -1,6 +1,6 @@
 <template>
   <div id="markdown-editor">
-    <textarea :value="input" @input="update"></textarea>
+    <textarea :value="input" @input="update" placeholder="# hello"></textarea>
     <div v-html="compiledMarkdown"></div>
   </div>
 </template>
@@ -11,33 +11,27 @@ import debounce from "debounce";
 export default {
   name: "MarkdownEditor",
   props: {
-    sequenceNo: Number,
-    type: String
+    sequenceNo: Number
   },
   data: function() {
     return {
-      input: "# hello"
+      input: ""
     };
   },
   computed: {
     compiledMarkdown: function() {
-      return marked(this.input, { sanitize: true });
+      return marked(this.input);
     }
   },
   methods: {
     update: debounce(function(e) {
       this.input = e.target.value;
-      console.log(this.$store);
-      this.$store.dispatch("updateComponentInput", {
+      this.$emit("update-component", {
         sequenceNo: this.sequenceNo,
-        type: this.type,
         input: this.input
       });
     }, 300)
   }
-  // mounted() {
-  //   console.log(this.sequenceNo);
-  // }
 };
 </script>
 
