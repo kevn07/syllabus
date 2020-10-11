@@ -6,7 +6,10 @@
     <youtube :video-id="videoId" />
     <h1 @click="addVideoComponent">Add YT</h1>
     <h1 @click="addMdComponent">Add MD</h1>
-    <span v-for="component of editorData" :key="component.sequenceNo">
+    <span
+      v-for="component of editorData.componentData"
+      :key="component.sequenceNo"
+    >
       <div v-if="component.type == 'markdown'">
         <MarkdownEditor
           :sequence-no="component.sequenceNo"
@@ -33,16 +36,25 @@ export default {
     MarkdownEditor,
     VideoEmbed
   },
+  props: {
+    resumeId: {
+      type: Number,
+      required: false
+    }
+  },
   data() {
     return {
-      title: "",
-      editorData: [
-        {
-          input: "",
-          type: "markdown",
-          sequenceNo: 0
-        }
-      ],
+      editorData: {
+        title: "",
+        componentData: [
+          {
+            input: "",
+            type: "markdown",
+            sequenceNo: 0
+          }
+        ],
+        id: 1
+      },
       videoId: "v8bZVdTgXoY",
       sequenceNo: 0
     };
@@ -50,7 +62,7 @@ export default {
   methods: {
     addMdComponent() {
       this.sequenceNo++;
-      this.editorData.push({
+      this.editorData.componentData.push({
         input: "",
         type: "markdown",
         sequenceNo: this.sequenceNo
@@ -58,23 +70,32 @@ export default {
     },
     addVideoComponent() {
       this.sequenceNo++;
-      this.editorData.push({
+      this.editorData.componentData.push({
         input: "",
         type: "video",
         sequenceNo: this.sequenceNo
       });
     },
     updateComponent(data) {
-      const index = this.editorData.findIndex(
+      const index = this.editorData.componentData.findIndex(
         a => a.sequenceNo === data.sequenceNo
       );
-      this.editorData[index].input = data.input;
+      this.editorData.componentData[index].input = data.input;
     },
     onSave() {
       this.$store.dispatch("saveData", {
         title: this.title,
-        data: this.editorData
+        data: this.editorData,
+        id: this.id
       });
+    },
+    resumeData() {
+      // call action to pull data and store as editorData
+    },
+    mounted() {
+      if (this.resumeId) {
+        this.resumeData();
+      }
     }
   }
 };

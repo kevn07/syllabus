@@ -1,6 +1,10 @@
 <template>
   <div id="markdown-editor">
-    <textarea :value="input" @input="update" placeholder="# write markdown text here :)"></textarea>
+    <textarea
+      :value="input"
+      @input="update"
+      placeholder="# write markdown text here :)"
+    ></textarea>
     <div v-html="compiledMarkdown"></div>
   </div>
 </template>
