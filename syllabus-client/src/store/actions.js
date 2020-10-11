@@ -21,10 +21,8 @@ export default {
         router.push("/login");
       });
   },
-  async createComponent({ commit }, data) {
+  async saveSyllabus({ commit }, data) {
+    // call backend or firestore to save data to DB
     commit("createComponent", data);
-  },
-  async updateComponentInput({ commit }, data) {
-    commit("updateComponentInput", data);
   }
 };
