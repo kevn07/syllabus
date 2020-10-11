@@ -12,9 +12,15 @@
 <script>
 export default {
   name: "Home",
+  data() {
+    return {};
+  },
   methods: {
     logout() {
       this.$store.dispatch("logout");
+    },
+    fetchData() {
+      //
     }
   }
 };

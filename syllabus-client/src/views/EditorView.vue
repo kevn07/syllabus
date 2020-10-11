@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="loaded">
     <h1>
       Editor
     </h1>
@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       editorData: {
         title: "",
         componentData: [
@@ -96,6 +97,7 @@ export default {
       if (this.resumeId) {
         this.resumeData();
       }
+      this.loaded = true;
     }
   }
 };
