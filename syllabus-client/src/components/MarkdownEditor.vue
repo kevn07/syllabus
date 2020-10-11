@@ -17,13 +17,13 @@ export default {
   props: {
     sequenceNo: Number
   },
-  data: function() {
+  data() {
     return {
       input: ""
     };
   },
   computed: {
-    compiledMarkdown: function() {
+    compiledMarkdown() {
       return marked(this.input);
     }
   },
