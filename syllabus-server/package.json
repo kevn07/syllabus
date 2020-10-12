@@ -1,0 +1,19 @@
+{
+  "name": "syllabus-server",
+  "version": "1.0.0",
+  "description": "backend server of syllabus application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo kevin he"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevn07/syllabus.git"
+  },
+  "author": "Kevin He",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevn07/syllabus/issues"
+  },
+  "homepage": "https://github.com/kevn07/syllabus#readme"
+}
