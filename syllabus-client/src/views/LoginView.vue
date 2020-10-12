@@ -18,9 +18,11 @@ export default {
         .signInWithPopup(provider)
         .then(result => {
           const token = result.credential.accessToken;
+          console.log(result.user);
           this.$store.dispatch("socialLogin", {
             email: result.user.email,
-            token: token
+            token: token,
+            uid: result.user.uid
           });
           this.$router.push("/home");
         })

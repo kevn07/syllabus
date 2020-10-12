@@ -24,6 +24,7 @@
         />
       </div>
     </span>
+    <h1 @click="onSave"> Save </h1>
   </div>
 </template>
 
@@ -53,12 +54,16 @@ export default {
             type: "markdown",
             sequenceNo: 0
           }
-        ],
-        id: 1
+        ]
       },
       videoId: "v8bZVdTgXoY",
       sequenceNo: 0
     };
+  },
+  computed: {
+    isLoaded() {
+      return this.loaded
+    }
   },
   methods: {
     addMdComponent() {
@@ -84,21 +89,21 @@ export default {
       this.editorData.componentData[index].input = data.input;
     },
     onSave() {
-      this.$store.dispatch("saveData", {
-        title: this.title,
-        data: this.editorData,
-        id: this.id
+      this.$store.dispatch("saveSyllabus", {
+        ...this.editorData,
+        author: this.$store.state.userProfile.uid
       });
     },
     resumeData() {
       // call action to pull data and store as editorData
-    },
-    mounted() {
+      return;
+    }
+  },
+  mounted() {
       if (this.resumeId) {
-        this.resumeData();
+        this.resumeData()
       }
       this.loaded = true;
     }
-  }
 };
 </script>

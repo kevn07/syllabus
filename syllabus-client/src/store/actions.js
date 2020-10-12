@@ -21,8 +21,18 @@ export default {
         router.push("/login");
       });
   },
-  async saveSyllabus({ commit }, data) {
-    // call backend or firestore to save data to DB
-    commit("createComponent", data);
+  async saveSyllabus(_,data) {
+    const ref = firebase.database().ref("syllabus/").push(data);
+    return ref.key;
+  },
+
+  async fetchSyllabus({dispatch}, id) {
+    firebase.database().ref('syllabus/' + id).once('value', function(snapshot) {
+      dispatch("returnData", snapshot.val())
+    })
+  },
+
+  async returnData(_, data) {
+    return data
   }
 };

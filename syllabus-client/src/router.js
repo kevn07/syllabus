@@ -9,7 +9,11 @@ Vue.use(Router);
 const routes = [
   {
     path: "/test",
-    component: EditorView
+    component: EditorView,
+    meta: {
+      requiresAuth: true
+    }
+    
   },
   {
     path: "/login",
