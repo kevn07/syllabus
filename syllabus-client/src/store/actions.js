@@ -21,18 +21,16 @@ export default {
         router.push("/login");
       });
   },
-  async saveSyllabus(_,data) {
+  async saveSyllabus({ dispatch, getters },data) {
     const ref = firebase.database().ref("syllabus/").push(data);
+    dispatch("fetchSyllabus", ref.key);
+    console.log(getters.returnEditorData);
     return ref.key;
   },
 
-  async fetchSyllabus({dispatch}, id) {
+  async fetchSyllabus({ commit }, id) {
     firebase.database().ref('syllabus/' + id).once('value', function(snapshot) {
-      dispatch("returnData", snapshot.val())
+      commit("setEditorData", snapshot.val())
     })
-  },
-
-  async returnData(_, data) {
-    return data
   }
 };
