@@ -6,10 +6,12 @@ export default {
     console.log("socialLogin", details);
     dispatch("fetchUserProfile", details);
   },
+
   async fetchUserProfile({ commit }, user) {
     const userProfile = user;
     commit("setUserProfile", userProfile);
   },
+
   async logout({ commit }) {
     commit("setUserProfile", {});
     console.log("running logout");
@@ -17,20 +19,40 @@ export default {
       .auth()
       .signOut()
       .then(() => {
-        console.log("inside here");
+        commit("setLogout");
         router.push("/login");
       });
   },
-  async saveSyllabus({ dispatch, getters },data) {
-    const ref = firebase.database().ref("syllabus/").push(data);
+
+  async saveSyllabus({ dispatch, getters }, data) {
+    const ref = firebase
+      .database()
+      .ref("syllabus/")
+      .push(data);
     dispatch("fetchSyllabus", ref.key);
     console.log(getters.returnEditorData);
     return ref.key;
   },
 
   async fetchSyllabus({ commit }, id) {
-    firebase.database().ref('syllabus/' + id).once('value', function(snapshot) {
-      commit("setEditorData", snapshot.val())
+    firebase
+      .database()
+      .ref("syllabus/" + id)
+      .once("value", function(snapshot) {
+        commit("setEditorData", snapshot.val());
+      });
+  },
+
+  async fetchSyllabusByAuthor({ state, commit}) {
+    let ref = firebase.database().ref("syllabus");
+    ref.orderByChild("authorId").equalTo(state.userProfile.uid).on("child_added", function(snapshot) {
+      commit("setMenuData", {
+        title: snapshot.val().title,
+        author: snapshot.val().author,
+        key: snapshot.key
+      })
     })
   }
+
+
 };

@@ -1,5 +1,6 @@
 <template>
   <div id="container-login">
+    <AppTitle />
     <h2 @click="socialLogin" class="social-button">
       Login
     </h2>
@@ -8,8 +9,12 @@
 
 <script>
 import firebase from "firebase";
+import AppTitle from "../components/AppTitle"
 export default {
   name: "Login",
+  components: {
+    AppTitle
+  },
   methods: {
     socialLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -21,6 +26,7 @@ export default {
           console.log(result.user);
           this.$store.dispatch("socialLogin", {
             email: result.user.email,
+            displayName: result.user.displayName,
             token: token,
             uid: result.user.uid
           });

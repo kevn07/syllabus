@@ -4,7 +4,9 @@ import store from "./store";
 import App from "./App.vue";
 import { auth } from "./lib/firebase";
 import VueYouTubeEmbed from "vue-youtube-embed";
+import FontAwesomeIcon from "./lib/fontAwesome";
 
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueYouTubeEmbed);
 Vue.config.productionTip = false;
 

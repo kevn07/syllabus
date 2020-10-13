@@ -1,31 +1,47 @@
 <template>
-  <div>
-    <h1>
-      Home
-    </h1>
-    <h2 @click="logout" class="social-button">
-      Logout
-    </h2>
+  <div v-if="loaded">
+    <h1>Home</h1>
+    <h2 @click="logout" class="social-button">Logout</h2>
+    <p>
+      {{ this.syllabusData }}
+    </p>
+  
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
-  name: "Home",
   data() {
-    return {};
+    return {
+      loaded: false
+    };
+  },
+  computed: {
+    ...mapGetters({
+      syllabusData: 'returnMenuData'
+    })
   },
   methods: {
+    fetchData() {
+      this.$store.dispatch("fetchSyllabusByAuthor");
+    },
     logout() {
       this.$store.dispatch("logout");
-    },
-    fetchData() {
-      //
     }
+  },
+  mounted() {
+    this.loaded = false
+    this.fetchData()
+    this.loaded = true
   }
 };
 </script>
 <style lang="scss" scoped>
+#container-login {
+  position: relative;
+}
+
 .social-button {
   max-width: 250px;
   color: white;
@@ -41,8 +57,5 @@ export default {
   opacity: 1;
   cursor: pointer;
   text-decoration: underline;
-}
-#container-login {
-  position: relative;
 }
 </style>

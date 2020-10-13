@@ -1,11 +1,11 @@
 <template>
-  <div v-if="loaded">
-    <h1>
-      Editor
-    </h1>
-    <youtube :video-id="videoId" />
-    <h1 @click="addVideoComponent">Add YT</h1>
-    <h1 @click="addMdComponent">Add MD</h1>
+  <div v-if="loaded" id="editor-container">
+    <h1>Editor</h1>
+    <SideBar>
+        <h3 @click="addVideoComponent" class="add-component-btn"><font-awesome-icon :icon="['fab','youtube']" /> Video</h3>
+        <h3 @click="addMdComponent" class="add-component-btn"><font-awesome-icon :icon="['fab','markdown']" /> Textbox</h3>
+    </SideBar>
+    <div>
     <span
       v-for="component of editorData.componentData"
       :key="component.sequenceNo"
@@ -19,23 +19,26 @@
       <div v-else-if="component.type == 'video'">
         <VideoEmbed
           :sequence-no="component.sequenceNo"
-          :video-id="videoId"
+          :video-id="component.input"
           @update-component="updateComponent"
         />
       </div>
     </span>
-    <h1 @click="onSave"> Save </h1>
+    <h1 @click="onSave">Save</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import MarkdownEditor from "../components/MarkdownEditor";
-import VideoEmbed from "../components/VideoEmbed";
+import MarkdownEditor from "../components/Editor/MarkdownEditor";
+import VideoEmbed from "../components/Editor/VideoEmbed";
+import SideBar from "../components/Editor/SideBar";
 export default {
   Name: "Editor",
   components: {
     MarkdownEditor,
-    VideoEmbed
+    VideoEmbed,
+    SideBar
   },
   props: {
     resumeId: {
@@ -62,7 +65,7 @@ export default {
   },
   computed: {
     isLoaded() {
-      return this.loaded
+      return this.loaded;
     }
   },
   methods: {
@@ -91,7 +94,8 @@ export default {
     onSave() {
       this.$store.dispatch("saveSyllabus", {
         ...this.editorData,
-        author: this.$store.state.userProfile.uid
+        authorId: this.$store.state.userProfile.uid,
+        author: this.$store.state.userProfile.displayName
       });
     },
     resumeData() {
@@ -100,10 +104,25 @@ export default {
     }
   },
   mounted() {
-      if (this.resumeId) {
-        this.resumeData()
-      }
-      this.loaded = true;
+    if (this.resumeId) {
+      this.resumeData();
     }
+    this.loaded = true;
+  }
 };
 </script>
+
+<style lang="scss">
+  #editor-container {
+    width: 100%;
+  }
+  .add-component-btn {
+    border-radius: 5px;
+    width: 50%;
+    padding: 0.5rem;
+  }
+  .add-component-btn:hover {
+    background: lightgrey;
+    text-decoration: underline;
+  }
+</style>

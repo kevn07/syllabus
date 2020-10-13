@@ -12,6 +12,8 @@
 <script>
 import marked from "marked";
 import debounce from "debounce";
+import DOMPurify from 'dompurify';
+
 export default {
   name: "MarkdownEditor",
   props: {
@@ -24,7 +26,8 @@ export default {
   },
   computed: {
     compiledMarkdown() {
-      return marked(this.input);
+      const text = DOMPurify.sanitize(this.input);
+      return marked(text);
     }
   },
   methods: {
@@ -52,13 +55,14 @@ body,
 textarea,
 #markdown-editor div {
   display: inline-block;
-  width: 49%;
+  width: 50%;
   height: 100%;
   vertical-align: top;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0 20px;
+  text-align: left;
 }
 
 textarea {

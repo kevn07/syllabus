@@ -1,4 +1,7 @@
 export default {
   userProfile: {},
-  editorData: {}
+  editorData: {},
+  menuData: [],
+  isNavOpen: false,
+  loggedIn: false
 };
