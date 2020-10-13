@@ -2,16 +2,20 @@
   <div v-if="loaded">
     <h1>Home</h1>
     <h2 @click="logout" class="social-button">Logout</h2>
-    <p>
-      {{ this.syllabusData }}
-    </p>
-  
+    <div v-for="(syllabus, index) in syllabusData" v-bind:key="index">
+      <SyllabusModal :syllabus="syllabus" />
+    </div>
   </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex"
+import SyllabusModal from "../components/SyllabusModal"
 export default {
+  name: "HomeView",
+  components: {
+    SyllabusModal
+  },
   data() {
     return {
       loaded: false
