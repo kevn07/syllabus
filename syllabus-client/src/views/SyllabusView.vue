@@ -17,11 +17,8 @@ export default {
   },
   methods: {
     fetchSyllabus() {
-      // this.loaded = false
-      console.log("hello world")
       this.$store.dispatch("fetchSyllabus", this.syllabusId)
       this.syllabusData = this.$store.state.editorData
-      // this.loaded = true
     }
   },
   created() {
