@@ -4,6 +4,7 @@ import LoginView from "./views/LoginView";
 import HomeView from "./views/HomeView";
 import firebase from "firebase";
 import EditorView from "./views/EditorView";
+import SyllabusView from "./views/SyllabusView";
 Vue.use(Router);
 
 const routes = [
@@ -21,6 +22,18 @@ const routes = [
   {
     path: "/home",
     component: HomeView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    name: "syllabus",
+    path: "/syllabus/:id",
+    component: SyllabusView,
+    props: {
+      default: true,
+      SyllabusView: route => ({ syllabusKey: route.params.id })
+    },
     meta: {
       requiresAuth: true
     }

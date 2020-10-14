@@ -46,4 +46,21 @@ export default {
   width: 100%;
   padding-bottom: 1rem;
 }
+
+.social-button {
+  max-width: 250px;
+  color: white;
+  width: 40%;
+  border: none;
+  border-radius: 5px;
+  background: #42b883;
+  opacity: 0.85;
+  display: inline-block;
+  text-decoration: none; /* remove underline from anchors */
+}
+.social-button:hover {
+  opacity: 1;
+  cursor: pointer;
+  text-decoration: underline;
+}
 </style>

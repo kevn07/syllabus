@@ -3,7 +3,6 @@ import firebase from "firebase";
 export default {
   // obtain asynchronous operations
   async socialLogin({ dispatch }, details) {
-    console.log("socialLogin", details);
     dispatch("fetchUserProfile", details);
   },
 
@@ -14,7 +13,6 @@ export default {
 
   async logout({ commit }) {
     commit("setUserProfile", {});
-    console.log("running logout");
     firebase
       .auth()
       .signOut()
@@ -45,6 +43,7 @@ export default {
 
   async fetchSyllabusByAuthor({ state, commit}) {
     let ref = firebase.database().ref("syllabus");
+    state.menuData = [];
     ref.orderByChild("authorId").equalTo(state.userProfile.uid).on("child_added", function(snapshot) {
       commit("setMenuData", {
         title: snapshot.val().title,
