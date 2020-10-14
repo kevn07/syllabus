@@ -34,7 +34,7 @@ export default {
       this.$store.dispatch("logout");
     },
     viewSyllabus(key){
-      this.$router.push({ name:"syllabus", params: { id: key } })
+      this.$router.push({ name:"syllabus", params: { syllabusId: key } })
     }
   },
   mounted() {

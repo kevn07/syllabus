@@ -1,7 +1,7 @@
 <template>
   <div>
     hello world
-    {{ this.syllabusKey }}
+    {{ this.syllabusId }}
   </div>
 </template>
 
@@ -9,7 +9,10 @@
 export default {
   name: "SyllabusView",
   props: {
-    syllabusKey: {}
+    syllabusId: String
+  },
+  methods: {
+    
   }
 }
 </script>

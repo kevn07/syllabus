@@ -28,12 +28,9 @@ const routes = [
   },
   {
     name: "syllabus",
-    path: "/syllabus/:id",
+    path: "/syllabus/:syllabusId",
     component: SyllabusView,
-    props: {
-      default: true,
-      SyllabusView: route => ({ syllabusKey: route.params.id })
-    },
+    props: true,
     meta: {
       requiresAuth: true
     }
