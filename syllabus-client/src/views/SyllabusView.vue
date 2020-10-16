@@ -16,13 +16,12 @@ export default {
     syllabusId: String
   },
   methods: {
-    fetchSyllabus() {
-      this.$store.dispatch("fetchSyllabus", this.syllabusId)
-      this.syllabusData = this.$store.state.editorData
+    async fetchSyllabus() {
+      this.syllabusData = await this.$store.dispatch("fetchSyllabus", this.syllabusId)
     }
   },
-  created() {
-    this.fetchSyllabus()
+  async mounted() {
+    await this.fetchSyllabus()
   }
 }
 </script>

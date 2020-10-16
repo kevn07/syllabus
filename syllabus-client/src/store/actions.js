@@ -32,13 +32,14 @@ export default {
     return ref.key;
   },
 
-  async fetchSyllabus({ commit }, id) {
-    firebase
-      .database()
-      .ref("syllabus/" + id)
-      .once("value", function(snapshot) {
-        commit("setEditorData", snapshot.val());
-      });
+  async fetchSyllabus(_, id) {
+    try {
+      const result = await firebase.database().ref("syllabus/" + id).once("value")
+      console.log(result.val())
+      return result.val()
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   async fetchSyllabusByAuthor({ state, commit}) {

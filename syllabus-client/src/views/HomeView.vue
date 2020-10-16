@@ -3,18 +3,18 @@
     <h1>Home</h1>
     <h2 @click="logout" class="social-button">Logout</h2>
     <div v-for="(syllabus, index) in syllabusData" v-bind:key="index">
-      <SyllabusModal :syllabus="syllabus" @click.native="viewSyllabus(syllabus.key)" class="syllabus-modal"/>
+      <SyllabusMosaic :syllabus="syllabus" @click.native="viewSyllabus(syllabus.key)" class="syllabus-modal"/>
     </div>
   </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex"
-import SyllabusModal from "../components/SyllabusModal"
+import SyllabusMosaic from "../components/SyllabusMosaic"
 export default {
   name: "HomeView",
   components: {
-    SyllabusModal
+    SyllabusMosaic
   },
   data() {
     return {
