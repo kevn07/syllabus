@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import debounce from "debounce";
 export default {
   name: "TitleEditor",
   data() {
@@ -14,10 +13,9 @@ export default {
     }
   },
   methods: {
-    update: debounce(function(e) {
-      this.input = e.target.value;
-      this.$emit("set-title", this.title);
-    }, 200)
+    updateTitle() {
+      this.$store.commit("setTitle", this.title)
+    }
   }
 }
 </script>

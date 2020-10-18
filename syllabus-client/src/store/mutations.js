@@ -19,5 +19,9 @@ export default {
 
   setLogout(state) {
     state.loggedIn = false;
+  },
+
+  setTitle(state, title) {
+    state.editorData.title = title
   }
 };

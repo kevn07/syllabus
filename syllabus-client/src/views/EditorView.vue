@@ -5,8 +5,8 @@
         <h3 @click="toggleInput" class="btn"><font-awesome-icon :icon="['fab','youtube']" /> Video</h3>
         <h3 @click="addMdComponent" class="btn"><font-awesome-icon :icon="['fab','markdown']" /> Textbox</h3>
     </SideBar>
-    <div v-if="showInput">
-      <input v-model="videoLink" type="text" placeholder="https://www.youtube.com/watch?v=oBpaB2YzX8s"/>
+    <div v-if="showInput" >
+      <input v-model="videoLink" type="text" placeholder="https://www.youtube.com/watch?v=oBpaB2YzX8s" id="input-field"/>
       <button @click="addVideoComponent"><font-awesome-icon :icon="['fas','search']" /> </button>
     </div>
     <TitleEditor/>
@@ -109,6 +109,7 @@ export default {
         authorId: this.$store.state.userProfile.uid,
         author: this.$store.state.userProfile.displayName
       });
+      this.$router.push({ path:"/home"})
     },
     resumeEditor() {
       // call action to pull data and store as editorData
@@ -116,9 +117,6 @@ export default {
     },
     toggleInput() {
       return this.showInput = !this.showInput;
-    },
-    setTitle(title) {
-      this.editorData.title = title;
     }
   },
   mounted() {
@@ -143,5 +141,8 @@ export default {
   .btn:hover {
     background: lightgrey;
     text-decoration: underline;
+  }
+  #input-field{
+    width: 100%
   }
 </style>

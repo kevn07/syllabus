@@ -22,11 +22,15 @@ export default {
       });
   },
 
-  async saveSyllabus({ dispatch, getters }, data) {
+  async saveSyllabus({ dispatch, getters, state }, data) {
     const ref = firebase
       .database()
       .ref("syllabus/")
-      .push(data);
+      .push({
+        ...data,
+        title: state.editorData.title
+      }
+    );
     dispatch("fetchSyllabus", ref.key);
     console.log(getters.returnEditorData);
     return ref.key;
@@ -44,13 +48,14 @@ export default {
   async fetchSyllabusByAuthor({ state, commit}) {
     let ref = firebase.database().ref("syllabus");
     state.menuData = [];
-    ref.orderByChild("authorId").equalTo(state.userProfile.uid).on("child_added", function(snapshot) {
+    const value = ref.orderByChild("authorId").equalTo(state.userProfile.uid).on("child_added", function(snapshot) {
       commit("setMenuData", {
         title: snapshot.val().title,
         author: snapshot.val().author,
         key: snapshot.key
       })
     })
+    console.log(value)
   }
 
 
