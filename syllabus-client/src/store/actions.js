@@ -35,7 +35,6 @@ export default {
   async fetchSyllabus(_, id) {
     try {
       const result = await firebase.database().ref("syllabus/" + id).once("value")
-      console.log(result.val())
       return result.val()
     } catch (error) {
       console.log(error)

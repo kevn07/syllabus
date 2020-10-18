@@ -4,8 +4,9 @@
       :value="input"
       @input="update"
       placeholder="# write markdown text here :)"
+      id="text-editor"
     ></textarea>
-    <div v-html="compiledMarkdown"></div>
+    <div v-html="compiledMarkdown" id="compiled-editor"></div>
   </div>
 </template>
 
@@ -42,31 +43,18 @@ export default {
 };
 </script>
 
-<style lang="scss">
-html,
-body,
+<style lang="scss" scoped>
 #markdown-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin: 0;
-  height: 100%;
+}
+
+#text-editor {
+  grid-column-start: 1;
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
-}
-
-textarea,
-#markdown-editor div {
-  display: inline-block;
-  width: 50%;
-  height: 100%;
-  vertical-align: top;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0 20px;
-  text-align: left;
-}
-
-textarea {
-  border: none;
+  border: black;
   border-right: 1px solid #ccc;
   resize: none;
   outline: none;
@@ -76,7 +64,18 @@ textarea {
   padding: 20px;
   height: 100%;
 }
-
+textarea,
+#markdown-editor div {
+  vertical-align: top;
+  // -webkit-box-sizing: border-box;
+  // -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: left;
+}
+#compiled-editor {
+  padding: 0 20px;
+  border: black;
+}
 code {
   color: #f66;
 }

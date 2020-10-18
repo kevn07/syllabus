@@ -11,7 +11,9 @@ export default {
 
 <style lang="scss">
   .sidebar {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.25rem;
+    align-items: center;
   }
 </style>

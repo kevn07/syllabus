@@ -1,11 +1,16 @@
 <template>
   <div v-if="loaded" id="editor-container">
-    <h1>Editor</h1>
+    <h1 class="title">Editor</h1>
     <SideBar>
-        <h3 @click="addVideoComponent" class="add-component-btn"><font-awesome-icon :icon="['fab','youtube']" /> Video</h3>
-        <h3 @click="addMdComponent" class="add-component-btn"><font-awesome-icon :icon="['fab','markdown']" /> Textbox</h3>
+        <h3 @click="toggleInput" class="btn"><font-awesome-icon :icon="['fab','youtube']" /> Video</h3>
+        <h3 @click="addMdComponent" class="btn"><font-awesome-icon :icon="['fab','markdown']" /> Textbox</h3>
     </SideBar>
-    <div>
+    <div v-if="showInput">
+      <input v-model="videoLink" type="text" placeholder="https://www.youtube.com/watch?v=oBpaB2YzX8s"/>
+      <button @click="addVideoComponent"><font-awesome-icon :icon="['fas','search']" /> </button>
+    </div>
+    <TitleEditor/>
+    <div class="component-container">
     <span
       v-for="component of editorData.componentData"
       :key="component.sequenceNo"
@@ -17,28 +22,31 @@
         />
       </div>
       <div v-else-if="component.type == 'video'">
-        <VideoEmbed
+        <VideoEditor
           :sequence-no="component.sequenceNo"
           :video-id="component.input"
           @update-component="updateComponent"
         />
       </div>
     </span>
-    <h1 @click="onSave">Save</h1>
     </div>
+    <h1 @click="onSave" class="btn">Save</h1> 
   </div>
 </template>
 
 <script>
 import MarkdownEditor from "../components/Editor/MarkdownEditor";
-import VideoEmbed from "../components/Editor/VideoEmbed";
+import VideoEditor from "../components/Editor/VideoEditor";
 import SideBar from "../components/Editor/SideBar";
+import TitleEditor from "../components/Editor/TitleEditor";
+import { getIdFromURL } from 'vue-youtube-embed'
 export default {
   Name: "Editor",
   components: {
     MarkdownEditor,
-    VideoEmbed,
-    SideBar
+    VideoEditor,
+    SideBar,
+    TitleEditor
   },
   props: {
     resumeId: {
@@ -48,6 +56,7 @@ export default {
   },
   data() {
     return {
+      showInput: false,
       loaded: false,
       editorData: {
         title: "",
@@ -59,7 +68,7 @@ export default {
           }
         ]
       },
-      videoId: "v8bZVdTgXoY",
+      videoLink: "",
       sequenceNo: 0
     };
   },
@@ -79,11 +88,14 @@ export default {
     },
     addVideoComponent() {
       this.sequenceNo++;
+      const videoId = getIdFromURL(this.videoLink)
       this.editorData.componentData.push({
-        input: "",
+        input: videoId,
         type: "video",
         sequenceNo: this.sequenceNo
       });
+      this.videoLink = "";
+      this.toggleInput();
     },
     updateComponent(data) {
       const index = this.editorData.componentData.findIndex(
@@ -98,9 +110,15 @@ export default {
         author: this.$store.state.userProfile.displayName
       });
     },
-    resumeData() {
+    resumeEditor() {
       // call action to pull data and store as editorData
       return;
+    },
+    toggleInput() {
+      return this.showInput = !this.showInput;
+    },
+    setTitle(title) {
+      this.editorData.title = title;
     }
   },
   mounted() {
@@ -112,16 +130,17 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   #editor-container {
     width: 100%;
   }
-  .add-component-btn {
+  
+  .btn {
     border-radius: 5px;
-    width: 50%;
     padding: 0.5rem;
+    box-shadow: 0 1px 2px #34495E;
   }
-  .add-component-btn:hover {
+  .btn:hover {
     background: lightgrey;
     text-decoration: underline;
   }

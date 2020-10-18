@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style>
+@import "colours.scss";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -61,6 +62,9 @@ export default {
 .social-button:hover {
   opacity: 1;
   cursor: pointer;
+  text-decoration: underline;
+}
+.title {
   text-decoration: underline;
 }
 </style>
